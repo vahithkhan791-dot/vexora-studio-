@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vexora Studio | Web, Apps, AI Coaching & Multilingual Solutions</title>
+  <!-- Google Fonts: Inter & Noto Sans for crisp Tamil, Devanagari (Hindi), and Nastaliq/Arabic (Urdu) rendering -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans Tamil', 'Noto Sans Devanagari', 'sans-serif'],
+            urdu: ['Noto Nastaliq Urdu', 'Inter', 'serif'],
+          },
+          colors: {
+            void: '#060913',
+            surface: '#0e1424',
+            surfaceLight: '#151e33',
+            borderGlow: '#1e293b',
+            electric: '#2563eb',
+            cyanGlow: '#06b6d4',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-void text-gray-100 font-sans antialiased overflow-x-hidden selection:bg-cyanGlow/30 selection:text-cyan-200">
+
+  <!-- Ambient Background Glow Orbs -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Sticky Navigation Header -->
+  <header class="sticky top-0 z-50 bg-void/85 backdrop-blur-lg border-b border-borderGlow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <!-- Brand Logo (Custom Inline SVG Geometric V + Spark) -->
+        <a href="#" class="flex items-center gap-3 group focus:outline-none">
+          <svg class="w-10 h-10 transition-transform duration-300 group-hover:scale-105" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Vexora Studio Logo">
+            <defs>
+              <linearGradient id="vexoraGrad" x1="6" y1="8" x2="40" y2="42" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#3b82f6" />
+                <stop offset="100%" stop-color="#06b6d4" />
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="44" height="44" rx="12" fill="#0e1424" stroke="url(#vexoraGrad)" stroke-width="2"/>
+            <!-- Left Ribbon Stroke -->
+            <path d="M13 14L23 36L27.5 26L21.5 14H13Z" fill="#2563eb"/>
+            <!-- Right Cyan Ribbon Stroke -->
+            <path d="M35 14L23 36L27.5 36L39.5 14H35Z" fill="url(#vexoraGrad)"/>
+            <!-- Glowing Spark Dot -->
+            <circle cx="38" cy="10" r="3" fill="#22d3ee"/>
+          </svg>
+          <div>
+            <span class="block font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-blue-100 to-cyan-300 bg-clip-text text-transparent">
+              Vexora Studio
+            </span>
+            <span class="block text-[11px] font-medium tracking-widest uppercase text-cyan-400/80">
+              By Vahith Khan K
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-8">
+          <a href="#services" class="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">Services</a>
+          <a href="#translator" class="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">4-Language Demo</a>
+          <a href="#work" class="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">Portfolio</a>
+          <a href="#workflow" class="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">How We Work</a>
+          <a href="#quote" class="px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg shadow-blue-600/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all">
+            Get a Free Quote
+          </a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl bg-surface border border-borderGlow text-gray-200 hover:border-cyan-500 focus:outline-none" aria-label="Toggle Menu">
+          <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-surface border-b border-borderGlow px-6 pt-4 pb-6 space-y-3">
+      <a href="#services" class="mobile-link block py-2.5 text-base font-medium text-gray-200 hover:text-cyan-400">Services (3 Pillars)</a>
+      <a href="#translator" class="mobile-link block py-2.5 text-base font-medium text-gray-200 hover:text-cyan-400">Live 4-Language Switcher</a>
+      <a href="#work" class="mobile-link block py-2.5 text-base font-medium text-gray-200 hover:text-cyan-400">Portfolio Showcase</a>
+      <a href="#workflow" class="mobile-link block py-2.5 text-base font-medium text-gray-200 hover:text-cyan-400">5-Step Client Workflow</a>
+      <a href="#quote" class="mobile-link block w-full text-center mt-3 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500">
+        Request Project Quote
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-20 pb-24 sm:pt-28 sm:pb-32">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Availability Pill -->
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface border border-cyan-500/30 text-cyan-300 text-xs sm:text-sm font-semibold mb-8 shadow-sm">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>Open for Global & Indian Freelance Projects</span>
+      </div>
+
+      <!-- Main Value Proposition -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.12] max-w-5xl mx-auto mb-6">
+        Websites, Apps, <span class="bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300 bg-clip-text text-transparent">AI Coaching</span> & Multilingual Localization
+      </h1>
+
+      <p class="text-gray-400 text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
+        Founded by <strong class="text-white font-semibold">Vahith Khan K</strong>, <strong class="text-cyan-300 font-semibold">Vexora Studio</strong> helps startups, creators, and professionals launch high-converting websites & apps, master AI tools 1-on-1, build ATS-ready resumes, and localize content across <span class="text-gray-200 font-medium">Tamil, English, Hindi, and Urdu</span>.
+      </p>
+
+      <!-- Dual CTA Buttons -->
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <a href="#quote" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-base text-white bg-gradient-to-r from-blue-600 to-cyan-500 shadow-xl shadow-blue-600/30 hover:shadow-cyan-500/45 hover:-translate-y-0.5 transition-all">
+          Start Your Project →
+        </a>
+        <a href="#translator" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-base text-gray-200 bg-surface border border-borderGlow hover:border-cyan-400 hover:bg-surfaceLight transition-all">
+          Try 4-Language Live Demo
+        </a>
+      </div>
+
+      <!-- Trust Metrics Strip -->
+      <div class="mt-16 pt-10 border-t border-borderGlow/70 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-white">3-in-1</div>
+          <div class="text-xs sm:text-sm text-gray-400 mt-1">Tech, Career & Language Studio</div>
+        </div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400">4 Languages</div>
+          <div class="text-xs sm:text-sm text-gray-400 mt-1">Tamil • English • Hindi • Urdu</div>
+        </div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-white">1-on-1</div>
+          <div class="text-xs sm:text-sm text-gray-400 mt-1">Personalized AI Teaching</div>
+        </div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-blue-400">100%</div>
+          <div class="text-xs sm:text-sm text-gray-400 mt-1">Transparent Milestone Delivery</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3-Pillar Services Section -->
+  <section id="services" class="py-20 bg-surface/40 border-y border-borderGlow/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-cyan-400">Our Core Capabilities</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-2 mb-4">Three Specialized Service Pillars</h2>
+        <p class="text-gray-400 text-base sm:text-lg">Everything you need to build your digital presence, accelerate your career with AI, and reach multilingual audiences.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Pillar 1: Web, App & Logo Ideation -->
+        <div class="bg-surface border border-borderGlow rounded-2xl p-8 flex flex-col justify-between hover:border-blue-500/80 hover:-translate-y-1 transition-all duration-300 shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-blue-600/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                </svg>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-300 border border-blue-500/20">Pillar 01</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">Web, App & Brand Identity</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Modern, responsive websites, full-stack web/mobile applications, and clean brand logo ideation tailored for startups, creators, and local businesses.
+            </p>
+            <ul class="space-y-3 text-sm text-gray-300 mb-8">
+              <li class="flex items-center gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span> Custom Business & E-Commerce Websites
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span> Full-Stack Web & Mobile App MVPs
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span> Logo Ideation, Brand Colors & Vector Kits
+              </li>
+            </ul>
+          </div>
+          <a href="#quote" onclick="preselectService('Web / App Development + Logo Ideation')" class="w-full py-3 px-4 rounded-xl text-center text-sm font-semibold bg-surfaceLight border border-borderGlow text-blue-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all">
+            Request Build Quote →
+          </a>
+        </div>
+
+        <!-- Pillar 2: 1-on-1 AI Teaching & Career Assets -->
+        <div class="bg-surface border border-cyan-500/40 rounded-2xl p-8 flex flex-col justify-between hover:border-cyan-400 hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-cyan-950/20 relative">
+          <div class="absolute -top-3.5 right-6 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow">
+            Most Popular
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-cyan-500/15 border border-cyan-400/30 flex items-center justify-center text-cyan-400">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                </svg>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">Pillar 02</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">1-on-1 AI Teaching & Career Kits</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Practical, beginner-friendly 1-on-1 coaching to master Generative AI workflows, paired with ATS-beating resumes and personal portfolio websites.
+            </p>
+            <ul class="space-y-3 text-sm text-gray-300 mb-8">
+              <li class="flex items-center gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span> Live 1-on-1 AI Prompting & Automation Tutoring
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span> ATS-Optimized Resume Building & Rewrite
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-cyan-400 font-bold">✓</span> Interactive Personal Portfolio Websites
+              </li>
+            </ul>
+          </div>
+          <a href="#quote" onclick="preselectService('1-on-1 AI Teaching & Resume/Portfolio')" class="w-full py-3 px-4 rounded-xl text-center text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/30 transition-all">
+            Book AI Session / Resume →
+          </a>
+        </div>
+
+        <!-- Pillar 3: Multilingual Translation & Localization -->
+        <div class="bg-surface border border-borderGlow rounded-2xl p-8 flex flex-col justify-between hover:border-teal-500/80 hover:-translate-y-1 transition-all duration-300 shadow-lg">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-14 h-14 rounded-2xl bg-teal-500/15 border border-teal-400/30 flex items-center justify-center text-teal-400">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                </svg>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-teal-500/10 text-teal-300 border border-teal-500/20">Pillar 03</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">4-Language Localization</h3>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+              Accurate, culturally natural human translation and script localization across <strong class="text-gray-200">Tamil, English, Hindi, and Urdu</strong> for apps, videos, and documents.
+            </p>
+            <ul class="space-y-3 text-sm text-gray-300 mb-8">
+              <li class="flex items-center gap-2.5">
+                <span class="text-teal-400 font-bold">✓</span> Website, App UI & Business Document Localization
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-teal-400 font-bold">✓</span> YouTube Video Scripts, Subtitles & Voiceover Text
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-teal-400 font-bold">✓</span> Any-to-Any Pair: Tamil ↔ English ↔ Hindi ↔ Urdu
+              </li>
+            </ul>
+          </div>
+          <a href="#quote" onclick="preselectService('Multilingual Translation (Tamil/English/Hindi/Urdu)')" class="w-full py-3 px-4 rounded-xl text-center text-sm font-semibold bg-surfaceLight border border-borderGlow text-teal-300 hover:bg-teal-600 hover:text-white hover:border-teal-600 transition-all">
+            Order Translation →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive 4-Language Live Sample Switcher -->
+  <section id="translator" class="py-24">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-cyan-400">Live Localization Preview</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-2 mb-3">4-Language Real-Time Sample Switcher</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Click any language tab below to see how Vexora Studio localizes business pitches, app interfaces, and educational content with native script accuracy.</p>
+      </div>
+
+      <div class="bg-surface border border-borderGlow rounded-3xl p-6 sm:p-10 shadow-2xl">
+        <!-- Context Scenario Selector -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-6 mb-6 border-b border-borderGlow">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-gray-400">Sample Type:</span>
+            <select id="sample-topic" class="bg-void border border-borderGlow text-gray-200 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-cyan-400">
+              <option value="agency">Business Website Welcome Pitch</option>
+              <option value="app">Mobile App Onboarding Screen</option>
+              <option value="ai">AI Course & Career Workshop Promo</option>
+            </select>
+          </div>
+
+          <!-- Language Switcher Buttons -->
+          <div class="flex flex-wrap gap-2" role="tablist" aria-label="Language Switcher">
+            <button class="lang-btn active px-4 py-2 rounded-xl text-sm font-bold bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow transition-all cursor-pointer" data-lang="en">
+              English
+            </button>
+            <button class="lang-btn px-4 py-2 rounded-xl text-sm font-bold bg-void border border-borderGlow text-gray-300 hover:border-cyan-400 transition-all cursor-pointer" data-lang="ta">
+              தமிழ் (Tamil)
+            </button>
+            <button class="lang-btn px-4 py-2 rounded-xl text-sm font-bold bg-void border border-borderGlow text-gray-300 hover:border-cyan-400 transition-all cursor-pointer" data-lang="hi">
+              हिन्दी (Hindi)
+            </button>
+            <button class="lang-btn px-4 py-2 rounded-xl text-sm font-bold bg-void border border-borderGlow text-gray-300 hover:border-cyan-400 transition-all cursor-pointer" data-lang="ur">
+              اردو (Urdu)
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Preview Output Card -->
+        <div id="translation-box" class="bg-void/90 border border-borderGlow rounded-2xl p-6 sm:p-8 min-h-[210px] flex flex-col justify-between transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span id="lang-badge" class="px-3 py-1 rounded-md text-xs font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+                English (Global Standard)
+              </span>
+              <span id="script-info" class="text-xs text-gray-500">LTR • Latin Script</span>
+            </div>
+            <h3 id="trans-headline" class="text-xl sm:text-2xl font-bold text-white mb-3">
+              Grow Your Business Faster with Custom Websites & Smart AI Solutions
+            </h3>
+            <p id="trans-body" class="text-gray-300 text-base sm:text-lg leading-relaxed">
+              At Vexora Studio, we turn your ideas into high-speed websites, mobile apps, and clear multilingual content so you can connect with customers everywhere.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-borderGlow/60 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-400">
+            <span>✓ Human-verified tone, grammar & cultural nuance</span>
+            <a href="#quote" onclick="preselectService('Multilingual Translation (Tamil/English/Hindi/Urdu)')" class="text-cyan-400 font-semibold hover:underline">
+              Translate your content in this language →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filterable Portfolio / Work Showcase -->
+  <section id="work" class="py-20 bg-surface/40 border-y border-borderGlow/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-cyan-400">Proof of Work</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-2 mb-4">Featured Client & Studio Showcase</h2>
+        <p class="text-gray-400">Filter across Websites, Apps, Logos, Resumes, and Multilingual Translations to inspect our quality standards.</p>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="flex flex-wrap justify-center gap-2.5 mb-12" id="portfolio-filters">
+        <button class="pf-btn active px-5 py-2.5 rounded-full text-sm font-semibold bg-blue-600 text-white border border-blue-500 transition-all cursor-pointer" data-cat="all">
+          All Work (6)
+        </button>
+        <button class="pf-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-surface text-gray-300 border border-borderGlow hover:border-cyan-400 transition-all cursor-pointer" data-cat="websites">
+          Websites
+        </button>
+        <button class="pf-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-surface text-gray-300 border border-borderGlow hover:border-cyan-400 transition-all cursor-pointer" data-cat="apps">
+          Apps & AI
+        </button>
+        <button class="pf-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-surface text-gray-300 border border-borderGlow hover:border-cyan-400 transition-all cursor-pointer" data-cat="logos">
+          Logos
+        </button>
+        <button class="pf-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-surface text-gray-300 border border-borderGlow hover:border-cyan-400 transition-all cursor-pointer" data-cat="resumes">
+          Resumes
+        </button>
+        <button class="pf-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-surface text-gray-300 border border-borderGlow hover:border-cyan-400 transition-all cursor-pointer" data-cat="translation">
+          Translation
+        </button>
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7" id="portfolio-grid">
+        <!-- Item 1: Websites -->
+        <article class="pf-item bg-surface border border-borderGlow rounded-2xl overflow-hidden flex flex-col hover:border-cyan-400/70 transition-all" data-cat="websites">
+          <div class="h-44 bg-gradient-to-br from-blue-950 via-slate-900 to-cyan-950 p-6 flex flex-col justify-between border-b border-borderGlow">
+            <div class="flex justify-between items-center">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30">Website</span>
+              <span class="text-xs text-gray-400">Responsive UI</span>
+            </div>
+            <div class="text-lg font-bold text-white">Clinic & Local Business Booking Site</div>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <p class="text-gray-400 text-sm mb-5">Fast mobile-first business website with service menus, Google Maps integration, and direct WhatsApp appointment booking.</p>
+            <div class="flex items-center justify-between text-xs font-semibold text-cyan-400">
+              <span>HTML • Tailwind • JS</span>
+              <a href="#quote" onclick="preselectService('Web / App Development + Logo Ideation')" class="hover:underline">Build Similar →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Item 2: Apps & AI -->
+        <article class="pf-item bg-surface border border-borderGlow rounded-2xl overflow-hidden flex flex-col hover:border-cyan-400/70 transition-all" data-cat="apps">
+          <div class="h-44 bg-gradient-to-br from-indigo-950 via-slate-900 to-blue-950 p-6 flex flex-col justify-between border-b border-borderGlow">
+            <div class="flex justify-between items-center">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">AI App</span>
+              <span class="text-xs text-gray-400">Python + Web</span>
+            </div>
+            <div class="text-lg font-bold text-white">AI Career Guidance & Skill Mentor App</div>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <p class="text-gray-400 text-sm mb-5">Interactive web application analyzing student strengths to recommend tailored career roadmaps and AI learning modules.</p>
+            <div class="flex items-center justify-between text-xs font-semibold text-cyan-400">
+              <span>Python • ML • Web UI</span>
+              <a href="#quote" onclick="preselectService('1-on-1 AI Teaching & Resume/Portfolio')" class="hover:underline">Book AI Demo →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Item 3: Logos -->
+        <article class="pf-item bg-surface border border-borderGlow rounded-2xl overflow-hidden flex flex-col hover:border-cyan-400/70 transition-all" data-cat="logos">
+          <div class="h-44 bg-gradient-to-br from-slate-900 via-cyan-950 to-slate-900 p-6 flex flex-col justify-between border-b border-borderGlow">
+            <div class="flex justify-between items-center">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-400/30">Logo Ideation</span>
+              <span class="text-xs text-gray-400">Brand Kit</span>
+            </div>
+            <div class="text-lg font-bold text-white">Geometric Tech & Startup Identity Pack</div>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <p class="text-gray-400 text-sm mb-5">3 custom logo concepts, monochrome & transparent PNG exports, typography pairing, and social media profile avatars.</p>
+            <div class="flex items-center justify-between text-xs font-semibold text-cyan-400">
+              <span>Vector SVG • Brand Guide</span>
+              <a href="#quote" onclick="preselectService('Web / App Development + Logo Ideation')" class="hover:underline">Order Logo →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Item 4: Resumes -->
+        <article class="pf-item bg-surface border border-borderGlow rounded-2xl overflow-hidden flex flex-col hover:border-cyan-400/70 transition-all" data-cat="resumes">
+          <div class="h-44 bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 p-6 flex flex-col justify-between border-b border-borderGlow">
+            <div class="flex justify-between items-center">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">ATS Resume</span>
+              <span class="text-xs text-gray-400">95+ ATS Score</span>
+            </div>
+            <div class="text-lg font-bold text-white">Executive Tech & Fresher Resume Overhaul</div>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <p class="text-gray-400 text-sm mb-5">Clean 1-page ATS-compliant resume layout with impact-driven bullet points, LinkedIn headline optimization, and live web portfolio.</p>
+            <div class="flex items-center justify-between text-xs font-semibold text-cyan-400">
+              <span>PDF + Editable + Web Link</span>
+              <a href="#quote" onclick="preselectService('1-on-1 AI Teaching & Resume/Portfolio')" class="hover:underline">Upgrade Resume →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Item 5: Translation -->
+        <article class="pf-item bg-surface border border-borderGlow rounded-2xl overflow-hidden flex flex-col hover:border-cyan-400/70 transition-all" data-cat="translation">
+          <div class="h-44 bg-gradient-to-br from-teal-950 via-slate-900 to-blue-950 p-6 flex flex-col justify-between border-b border-borderGlow">
+            <div class="flex justify-between items-center">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-teal-500/20 text-teal-300 border border-teal-400/30">Translation</span>
+              <span class="text-xs text-gray-400">4 Languages</span>
+            </div>
+            <div class="text-lg font-bold text-white">EdTech Course & YouTube Subtitle Pack</div>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <p class="text-gray-400 text-sm mb-5">Localized 25+ educational scripts and SRT subtitle files from English into natural Tamil, Hindi, and Urdu for regional reach.</p>
+            <div class="flex items-center justify-between text-xs font-semibold text-cyan-400">
+              <span>Tamil • English • Hindi • Urdu</span>
+              <a href="#quote" onclick="preselectService('Multilingual Translation (Tamil/English/Hindi/Urdu)')" class="hover:underline">Request Sample →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Item 6: Apps & Automation -->
+        <article class="pf-item bg-surface border border-borderGlow rounded-2xl overflow-hidden flex flex-col hover:border-cyan-400/70 transition-all" data-cat="apps websites">
+          <div class="h-44 bg-gradient-to-br from-sky-950 via-slate-900 to-indigo-950 p-6 flex flex-col justify-between border-b border-borderGlow">
+            <div class="flex justify-between items-center">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30">Web App</span>
+              <span class="text-xs text-gray-400">Computer Vision</span>
+            </div>
+            <div class="text-lg font-bold text-white">Smart Face-Recognition Attendance Portal</div>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <p class="text-gray-400 text-sm mb-5">Automated attendance logging web app using real-time face detection and exportable CSV/SQL reports for institutes and offices.</p>
+            <div class="flex items-center justify-between text-xs font-semibold text-cyan-400">
+              <span>Python • OpenCV • Dashboard</span>
+              <a href="#quote" onclick="preselectService('Web / App Development + Logo Ideation')" class="hover:underline">Inquire Now →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transparent 5-Step Client Workflow Timeline -->
+  <section id="workflow" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-cyan-400">Zero Confusion Process</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-2 mb-4">How We Work Together (5 Clear Steps)</h2>
+        <p class="text-gray-400">A structured, stress-free workflow designed so you always know your timeline, milestones, and deliverables.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+        <!-- Step 1 -->
+        <div class="bg-surface border border-borderGlow rounded-2xl p-6 relative">
+          <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/40 text-blue-400 font-extrabold flex items-center justify-center mb-4">
+            01
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Discovery</h3>
+          <p class="text-gray-400 text-sm">Quick 10-minute chat via WhatsApp or Email to align on your goals, language pairs, or design vision.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-surface border border-borderGlow rounded-2xl p-6 relative">
+          <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/40 text-blue-400 font-extrabold flex items-center justify-center mb-4">
+            02
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Proposal & 40% Advance</h3>
+          <p class="text-gray-400 text-sm">You receive a clear fixed-price scope and delivery date. Work kicks off immediately upon a 40% advance.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-surface border border-borderGlow rounded-2xl p-6 relative">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-extrabold flex items-center justify-center mb-4">
+            03
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">First Draft</h3>
+          <p class="text-gray-400 text-sm">Receive an early preview—live staging link, logo concepts, resume draft, or initial translated sample.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-surface border border-borderGlow rounded-2xl p-6 relative">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-extrabold flex items-center justify-center mb-4">
+            04
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">2 Free Revisions</h3>
+          <p class="text-gray-400 text-sm">We refine colors, layouts, wording, or code across 2 complimentary revision rounds until you are 100% happy.</p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="bg-surface border border-cyan-500/40 rounded-2xl p-6 relative shadow-lg shadow-cyan-950/20">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-extrabold flex items-center justify-center mb-4">
+            05
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Final Handover</h3>
+          <p class="text-gray-400 text-sm">Complete the remaining 60% balance and receive all source code, live deployment, vector files, or final documents.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Project Quote & Inquiry Form -->
+  <section id="quote" class="py-24 bg-surface/50 border-t border-borderGlow">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-cyan-400">Let's Collaborate</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-2 mb-3">Get an Instant Project Quote</h2>
+        <p class="text-gray-400">Fill out your requirements below to generate a ready-to-send inquiry directly to <strong class="text-gray-200">vahithkhan45@gmail.com</strong> or WhatsApp.</p>
+      </div>
+
+      <div class="bg-surface border border-borderGlow rounded-3xl p-6 sm:p-10 shadow-2xl">
+        <form id="quote-form" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="client-name" class="block text-sm font-semibold text-gray-300 mb-2">Your Name *</label>
+              <input type="text" id="client-name" required placeholder="e.g., Rahul Sharma / Sarah"
+                class="w-full px-4 py-3.5 rounded-xl bg-void border border-borderGlow text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors" />
+            </div>
+            <div>
+              <label for="client-contact" class="block text-sm font-semibold text-gray-300 mb-2">Your Email or WhatsApp *</label>
+              <input type="text" id="client-contact" required placeholder="e.g., rahul@email.com / +91 98765..."
+                class="w-full px-4 py-3.5 rounded-xl bg-void border border-borderGlow text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="service-select" class="block text-sm font-semibold text-gray-300 mb-2">Primary Service Needed *</label>
+              <select id="service-select"
+                class="w-full px-4 py-3.5 rounded-xl bg-void border border-borderGlow text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors">
+                <option value="Web / App Development + Logo Ideation">Web / App Development + Logo Ideation</option>
+                <option value="1-on-1 AI Teaching & Resume/Portfolio">1-on-1 AI Teaching & Resume/Portfolio</option>
+                <option value="Multilingual Translation (Tamil/English/Hindi/Urdu)">Multilingual Translation (Tamil/English/Hindi/Urdu)</option>
+                <option value="Custom Multi-Service Bundle">Custom Multi-Service Bundle</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="lang-pair" class="block text-sm font-semibold text-gray-300 mb-2">Preferred Language / Translation Pair</label>
+              <select id="lang-pair"
+                class="w-full px-4 py-3.5 rounded-xl bg-void border border-borderGlow text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors">
+                <option value="English Only">English Only</option>
+                <option value="Tamil ↔ English">Tamil ↔ English</option>
+                <option value="Hindi ↔ English">Hindi ↔ English</option>
+                <option value="Urdu ↔ English">Urdu ↔ English</option>
+                <option value="All 4 Languages (Tamil, English, Hindi, Urdu)">All 4 Languages (Tamil, English, Hindi, Urdu)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="project-brief" class="block text-sm font-semibold text-gray-300 mb-2">Project Details & Timeline *</label>
+            <textarea id="project-brief" rows="4" required placeholder="Describe your website, app idea, AI learning goals, resume needs, or word count for translation..."
+              class="w-full px-4 py-3.5 rounded-xl bg-void border border-borderGlow text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
+          </div>
+
+          <button type="submit"
+            class="w-full py-4 px-6 rounded-xl font-bold text-base text-white bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg shadow-blue-600/30 hover:shadow-cyan-500/45 hover:-translate-y-0.5 transition-all cursor-pointer">
+            Generate Inquiry & Send Quote Request
+          </button>
+        </form>
+
+        <!-- Dynamic Submission Summary & Instant Action Panel -->
+        <div id="summary-panel" class="hidden mt-8 p-6 rounded-2xl bg-void border border-cyan-500/40">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">✓ Inquiry Summary Ready</span>
+            <button id="copy-summary-btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surfaceLight border border-borderGlow text-gray-200 hover:border-cyan-400 transition-all cursor-pointer">
+              Copy Message
+            </button>
+          </div>
+          <pre id="summary-text" class="whitespace-pre-wrap text-sm text-gray-300 font-sans bg-surface p-4 rounded-xl border border-borderGlow mb-4"></pre>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a id="mailto-launch" href="#" class="flex-1 py-3 px-4 rounded-xl text-center text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 transition-all">
+              Send via Email App →
+            </a>
+            <a id="whatsapp-launch" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 py-3 px-4 rounded-xl text-center text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-500 transition-all">
+              Send via WhatsApp →
+            </a>
+          </div>
+          <p id="copy-feedback" class="hidden text-xs text-emerald-400 mt-2 font-medium">Copied inquiry text to your clipboard!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-void border-t border-borderGlow py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center font-extrabold text-white text-sm">
+          V
+        </div>
+        <div>
+          <span class="font-bold text-white">Vexora Studio</span>
+          <span class="text-gray-500 text-sm block sm:inline sm:ml-2">Founded by Vahith Khan K</span>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+        <a href="mailto:vahithkhan45@gmail.com" class="hover:text-cyan-400 transition-colors">vahithkhan45@gmail.com</a>
+        <a href="https://github.com/vahithkhan791-dot" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors">GitHub</a>
+        <a href="https://www.linkedin.com/in/vahithkhan-k-0a4376390" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors">LinkedIn</a>
+      </div>
+
+      <p class="text-xs text-gray-500">
+        © 2026 Vexora Studio. Web • Apps • AI • Tamil/English/Hindi/Urdu.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Interactive Scripts -->
+  <script>
+    // Helper function called from Service & Portfolio cards to prefill the quote form
+    function preselectService(serviceName) {
+      const selectEl = document.getElementById('service-select');
+      if (selectEl) {
+        selectEl.value = serviceName;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Mobile Navigation Drawer Toggle
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      mobileBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden');
+        iconOpen.classList.toggle('hidden', !isHidden);
+        iconClose.classList.toggle('hidden', isHidden);
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        });
+      });
+
+      // 2. Interactive 4-Language Live Sample Switcher
+      const translations = {
+        agency: {
+          en: {
+            badge: 'English (Global Standard)',
+            script: 'LTR • Latin Script',
+            dir: 'ltr',
+            isUrdu: false,
+            headline: 'Grow Your Business Faster with Custom Websites & Smart AI Solutions',
+            body: 'At Vexora Studio, we turn your ideas into high-speed websites, mobile apps, and clear multilingual content so you can connect with customers everywhere.'
+          },
+          ta: {
+            badge: 'தமிழ் (Tamil Localization)',
+            script: 'LTR • Tamil Script',
+            dir: 'ltr',
+            isUrdu: false,
+            headline: 'நவீன இணையதளங்கள் மற்றும் AI தீர்வுகள் மூலம் உங்கள் தொழிலை வேகமாக வளர்க்கவும்',
+            body: 'Vexora Studio மூலம் உங்கள் எண்ணங்களை அதிவேக இணையதளங்கள், மொபைல் செயலிகள் மற்றும் துல்லியமான பன்மொழி உள்ளடக்கமாக மாற்றி வாடிக்கையாளர்களை எளிதில் சென்றடையுங்கள்.'
+          },
+          hi: {
+            badge: 'हिन्दी (Hindi Localization)',
+            script: 'LTR • Devanagari Script',
+            dir: 'ltr',
+            isUrdu: false,
+            headline: 'कस्टम वेबसाइट्स और स्मार्ट AI समाधानों के साथ अपने व्यवसाय को तेज़ी से बढ़ाएँ',
+            body: 'Vexora Studio में हम आपके विचारों को तेज़ वेबसाइटों, मोबाइल ऐप्स और सटीक बहुभाषी सामग्री में बदलते हैं ताकि आप हर जगह ग्राहकों से जुड़ सकें।'
+          },
+          ur: {
+            badge: 'اردو (Urdu Localization)',
+            script: 'RTL • Nastaliq Script',
+            dir: 'rtl',
+            isUrdu: true,
+            headline: 'کسٹم ویب سائٹس اور اسمارٹ AI سلوشنز کے ساتھ اپنے کاروبار کو تیزی سے بڑھائیں',
+            body: 'Vexora Studio میں ہم آپ کے خیالات کو تیز رفتار ویب سائٹس، موبائل ایپس، اور معیاری کثیر لسانی مواد میں تبدیل کرتے ہیں تاکہ آپ ہر جگہ صارفین سے جڑ سکیں۔'
+          }
+        },
+        app: {
+          en: {
+            badge: 'English (App UI)',
+            script: 'LTR • Latin Script',
+            dir: 'ltr',
+            isUrdu: false,
+            headline: 'Track Your Daily Goals & Automate Tasks in One Tap',
+            body: 'Welcome aboard! Customize your dashboard, get smart AI reminders, and sync your progress seamlessly across mobile and desktop.'
+          },
+          ta: {
+            badge: 'தமிழ் (App UI)',
+            script: 'LTR • Tamil Script',
+            dir: 'ltr',
+            isUrdu: false,
+            headline: 'ஒரே தட்டலில் உங்கள் தினசரி இலக்குகளைக் கண்காணித்து பணிகளை எளிதாக்குங்கள்',
+            body: 'நல்வரவு! உங்கள் டாஷ்போர்டை வடிவமைத்து, ஸ்மார்ட் AI நினைவூட்டல்களைப் பெறுங்கள் மற்றும் மொபைல் மற்றும் கணினியில் உங்கள் முன்னேற்றத்தை எளிதாக இணைத்திடுங்கள்.'
+          },
+          hi: {
+            badge: 'हिन्दी (App UI)',
+            script: 'LTR • Devanagari Script',
+            dir: 'ltr',
+            isUrdu: false,
+            headline: 'एक टैप में अपने दैनिक लक्ष्यों को ट्रैक करें और कार्यों को ऑटोमेट करें',
+            body: 'आपका स्वागत है! अपने डैशबोर्ड को कस्टमाइज़ करें, स्मार्ट AI रिमाइंडर प्राप्त करें और मोबाइल व डेस्कटॉप पर अपनी प्रगति को आसानी से सिंक करें।'
+          },
+          ur: {
+            badge: 'اردو (App UI)',
+            script: 'RTL • Nastaliq Script',
+            dir: 'rtl',
+            isUrdu: true,
+            headline: 'ایک کلک میں اپنے روزانہ کے اہداف کو ٹریک کریں اور کاموں کو خودکار بنائیں',
+            body: 'خوش آمدید! اپنے ڈیش بورڈ کو حسب ضرورت بنائیں، اسمارٹ AI یاد دہانیاں حاصل کریں، اور موبائل اور ڈیسک ٹاپ پر اپنی پیشرفت کو آسانی سے ہم آہنگ کریں۔'
+          }
+        },
+        ai: {
+          en: {
+            badge: 'English (AI Coaching)',
+            script: 'LTR • Latin Script',
+            dir: 'ltr',
+            isUrdu: false,
+            headline: 'Master Practical AI Tools & Build an Interview-Winning Resume',
+            body: 'Join 1-on-1 live mentoring sessions to learn prompt engineering, automate daily office work, and launch a standout career portfolio.'
+          },
+          ta: {
+            badge: 'தமிழ் (AI Coaching)',
+            script: 'LTR • Tamil Script',
+            dir: 'ltr',
+            isUrdu: false,
+            headline: 'நடைமுறை AI கருவிகளைக் கற்று நேர்காணலில் வெற்றி பெறும் ரெஸ்யூமை உருவாக்குங்கள்',
+            body: '1-க்கு-1 நேரடி பயிற்சியில் இணைந்து AI நுட்பங்களைக் கற்றுக்கொள்ளுங்கள், அன்றாட அலுவலகப் பணிகளை எளிதாக்குங்கள் மற்றும் சிறந்த போர்ட்ஃபோலியோவை உருவாக்குங்கள்.'
+          },
+          hi: {
+            badge: 'हिन्दी (AI Coaching)',
+            script: 'LTR • Devanagari Script',
+            dir: 'ltr',
+            isUrdu: false,
+            headline: 'व्यावहारिक AI टूल्स सीखें और इंटरव्यू जीतने वाला रिज्यूमे बनाएं',
+            body: 'प्रॉम्प्ट इंजीनियरिंग सीखने, दैनिक ऑफिस कार्यों को ऑटोमेट करने और एक शानदार करियर पोर्टफोलियो बनाने के लिए 1-ऑन-1 लाइव मेंटरिंग से जुड़ें।'
+          },
+          ur: {
+            badge: 'اردو (AI Coaching)',
+            script: 'RTL • Nastaliq Script',
+            dir: 'rtl',
+            isUrdu: true,
+            headline: 'عملی AI ٹولز سیکھیں اور انٹرویو جیتنے والا ریزیومے تیار کریں',
+            body: 'پرامپٹ انجینئرنگ سیکھنے، روزمرہ کے دفتری کاموں کو خودکار بنانے، اور ایک شاندار کیریئر پورٹ فولیو لانچ کرنے کے لیے 1-آن-1 لائیو سیشنز میں شامل ہوں۔'
+          }
+        }
+      };
+
+      let currentLang = 'en';
+      let currentTopic = 'agency';
+
+      const langButtons = document.querySelectorAll('.lang-btn');
+      const topicSelect = document.getElementById('sample-topic');
+      const transBox = document.getElementById('translation-box');
+      const langBadge = document.getElementById('lang-badge');
+      const scriptInfo = document.getElementById('script-info');
+      const transHeadline = document.getElementById('trans-headline');
+      const transBody = document.getElementById('trans-body');
+
+      function renderTranslation() {
+        const entry = translations[currentTopic][currentLang];
+        langBadge.textContent = entry.badge;
+        scriptInfo.textContent = entry.script;
+        transHeadline.textContent = entry.headline;
+        transBody.textContent = entry.body;
+
+        // Handle RTL & Urdu Nastaliq font gracefully
+        transHeadline.setAttribute('dir', entry.dir);
+        transBody.setAttribute('dir', entry.dir);
+        if (entry.isUrdu) {
+          transHeadline.classList.add('font-urdu', 'leading-loose');
+          transBody.classList.add('font-urdu', 'leading-loose');
+        } else {
+          transHeadline.classList.remove('font-urdu', 'leading-loose');
+          transBody.classList.remove('font-urdu', 'leading-loose');
+        }
+      }
+
+      langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          langButtons.forEach(b => {
+            b.classList.remove('active', 'bg-gradient-to-r', 'from-blue-600', 'to-cyan-500', 'text-white', 'shadow');
+            b.classList.add('bg-void', 'border', 'border-borderGlow', 'text-gray-300');
+          });
+          btn.classList.add('active', 'bg-gradient-to-r', 'from-blue-600', 'to-cyan-500', 'text-white', 'shadow');
+          btn.classList.remove('bg-void', 'border', 'border-borderGlow', 'text-gray-300');
+
+          currentLang = btn.getAttribute('data-lang');
+          renderTranslation();
+        });
+      });
+
+      topicSelect.addEventListener('change', (e) => {
+        currentTopic = e.target.value;
+        renderTranslation();
+      });
+
+      // 3. Portfolio Category Filter
+      const pfButtons = document.querySelectorAll('.pf-btn');
+      const pfItems = document.querySelectorAll('.pf-item');
+
+      pfButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          pfButtons.forEach(b => {
+            b.classList.remove('active', 'bg-blue-600', 'text-white', 'border-blue-500');
+            b.classList.add('bg-surface', 'text-gray-300', 'border-borderGlow');
+          });
+          btn.classList.add('active', 'bg-blue-600', 'text-white', 'border-blue-500');
+          btn.classList.remove('bg-surface', 'text-gray-300', 'border-borderGlow');
+
+          const cat = btn.getAttribute('data-cat');
+          pfItems.forEach(item => {
+            const itemCats = item.getAttribute('data-cat') || '';
+            if (cat === 'all' || itemCats.includes(cat)) {
+              item.style.display = 'flex';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // 4. Interactive Project Quote & Summary Generator
+      const quoteForm = document.getElementById('quote-form');
+      const summaryPanel = document.getElementById('summary-panel');
+      const summaryText = document.getElementById('summary-text');
+      const mailtoLaunch = document.getElementById('mailto-launch');
+      const whatsappLaunch = document.getElementById('whatsapp-launch');
+      const copyBtn = document.getElementById('copy-summary-btn');
+      const copyFeedback = document.getElementById('copy-feedback');
+
+      quoteForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        try {
+          const name = document.getElementById('client-name').value.trim();
+          const contact = document.getElementById('client-contact').value.trim();
+          const service = document.getElementById('service-select').value;
+          const langPair = document.getElementById('lang-pair').value;
+          const brief = document.getElementById('project-brief').value.trim();
+
+          const formattedMessage =
+`Hello Vahith Khan K (Vexora Studio),
+
+I would like to request a quote for a new project:
+• Name: ${name}
+• Contact: ${contact}
+• Service: ${service}
+• Language Requirement: ${langPair}
+
+Project Brief:
+${brief}`;
+
+          summaryText.textContent = formattedMessage;
+
+          const encodedSubject = encodeURIComponent(`Vexora Studio Inquiry: ${service} — ${name}`);
+          const encodedBody = encodeURIComponent(formattedMessage);
+
+          mailtoLaunch.href = `mailto:vahithkhan45@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
+          whatsappLaunch.href = `https://wa.me/?text=${encodedBody}`;
+
+          summaryPanel.classList.remove('hidden');
+          summaryPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } catch (err) {
+          console.error('Error generating quote summary:', err);
+        }
+      });
+
+      // Clipboard Copy using document.execCommand for iframe compatibility
+      copyBtn.addEventListener('click', () => {
+        try {
+          const tempArea = document.createElement('textarea');
+          tempArea.value = summaryText.textContent;
+          document.body.appendChild(tempArea);
+          tempArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempArea);
+
+          copyFeedback.classList.remove('hidden');
+          setTimeout(() => copyFeedback.classList.add('hidden'), 3000);
+        } catch (err) {
+          console.error('Copy failed:', err);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
